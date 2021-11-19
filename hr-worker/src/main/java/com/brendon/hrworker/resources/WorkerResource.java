@@ -23,9 +23,6 @@ public class WorkerResource {
 	
 	private static Logger logger = org.slf4j.LoggerFactory.getLogger(WorkerResource.class);
 	
-	@Value("${test.config}")
-	private String testConfig;
-	
 	@Autowired
 	private Environment env;
 	
@@ -34,7 +31,6 @@ public class WorkerResource {
 	
 	@GetMapping(value="/configs")
 	public ResponseEntity<List<Worker>> getConfigs() {
-		logger.info("CONFIG = " + testConfig);
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -46,9 +42,7 @@ public class WorkerResource {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Worker> findById(@PathVariable Long id) {
-		
-		logger.info("Port = " + env.getProperty("local.server.port"));
-		
+				
 		Worker obj = repository.findById(id).get();
 		return ResponseEntity.ok(obj);
 	}
